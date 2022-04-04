@@ -230,10 +230,10 @@ public class RobotContainer {
     reset.whenPressed(new InstantCommand(driveSub::zeroGyroscope, driveSub));
 
     changeDrive.toggleWhenPressed(
-      new RobotDriveCommand(
-      () -> modifyAxis(driver.getRawAxis(1)) * DriveTrainSubsystems.maxVelocityPerSecond,
-      () -> modifyAxis(driver.getRawAxis(0)) * DriveTrainSubsystems.maxVelocityPerSecond,
-      () -> modifyAxis(driver.getRawAxis(4)) * DriveTrainSubsystems.maxAngularVelocityPerSecond,
+      new FieldDriveCommand(
+      () -> modifyAxis(driver.getRawAxis(1)),
+      () -> modifyAxis(driver.getRawAxis(0)),
+      () -> modifyAxis(driver.getRawAxis(4)),
       driveSub
     ));
   }

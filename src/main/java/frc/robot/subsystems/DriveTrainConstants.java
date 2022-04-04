@@ -3,6 +3,11 @@ package frc.robot.subsystems;
 
 public interface DriveTrainConstants {
 
+
+  
+  static final double kWheelRadius = 0.0508;
+  static final int kEncoderResolution = 4096;
+  
   //USE CHARACTERIZATION TOOL FOR THIS INFO https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-characterization/introduction.html#introduction-to-robot-characterization
   public static final double maxVoltage = 7;//7
 
