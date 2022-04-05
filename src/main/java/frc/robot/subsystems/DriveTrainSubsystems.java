@@ -31,7 +31,7 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
 
 
   // search up Pigeon IMU for more info
-  WPI_Pigeon2 pidgey = new WPI_Pigeon2(pigeonID);
+  WPI_Pigeon2 pidgey = new WPI_Pigeon2(pigeonID, "Drivebase");
   // Odometry class for tracking robot pose  Rotation2d.fromDegrees(getFusedHeading());     getRotation2d()           Rotation2d.fromDegrees(pidgey.getCompassHeading()
     private final SwerveDriveOdometry odo = new SwerveDriveOdometry(Constants.m_kinematics, pidgey.getRotation2d());
 
@@ -110,20 +110,21 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
   {
     states = Constants.m_kinematics.toSwerveModuleStates(speeds);
     // states = Constants.m_kinematics.toSwerveModuleStates(speeds);
-    frontLeftModule.set(states[0].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[0].angle.getRadians());
-    frontRightModule.set(states[1].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[1].angle.getRadians());
-    backLeftModule.set(states[2].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[2].angle.getRadians());
-    backRightModule.set(states[3].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[3].angle.getRadians());
+    // frontLeftModule.set(states[0].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[0].angle.getRadians());
+    frontLeftModule.set(states[0].speedMetersPerSecond, states[0].angle.getRadians());
+    frontRightModule.set(states[1].speedMetersPerSecond, states[1].angle.getRadians());
+    backLeftModule.set(states[2].speedMetersPerSecond, states[2].angle.getRadians());
+    backRightModule.set(states[3].speedMetersPerSecond, states[3].angle.getRadians());
   }
 
   public void setModules(SwerveModuleState[] speeds)
   {
     states = speeds;
-    // drive(Constants.m_kinematics.toChassisSpeeds(speeds));
-    frontLeftModule.set(speeds[0].speedMetersPerSecond * -2, speeds[0].angle.getRadians());
-    frontRightModule.set(speeds[1].speedMetersPerSecond * -2, speeds[1].angle.getRadians());
-    backLeftModule.set(speeds[2].speedMetersPerSecond * -2, speeds[2].angle.getRadians());
-    backRightModule.set(speeds[3].speedMetersPerSecond * -2, speeds[3].angle.getRadians());
+    drive(Constants.m_kinematics.toChassisSpeeds(speeds));
+    // frontLeftModule.set(speeds[0].speedMetersPerSecond * -2, speeds[0].angle.getRadians());
+    // frontRightModule.set(speeds[1].speedMetersPerSecond * -2, speeds[1].angle.getRadians());
+    // backLeftModule.set(speeds[2].speedMetersPerSecond * -2, speeds[2].angle.getRadians());
+    // backRightModule.set(speeds[3].speedMetersPerSecond * -2, speeds[3].angle.getRadians());
   }
 
   @Override
