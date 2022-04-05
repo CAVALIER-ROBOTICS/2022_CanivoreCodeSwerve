@@ -7,6 +7,9 @@ package frc.robot;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
 import edu.wpi.first.util.ErrorMessages;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -76,6 +79,7 @@ public class RobotContainer {
   public static XboxController operator = new XboxController(1);
 
 
+
   DriveTrainSubsystems driveSub = new DriveTrainSubsystems();
   TurretSubsystem turretSub = new TurretSubsystem();;
   HopperFloorSubsystem floorSub = new HopperFloorSubsystem();
@@ -106,22 +110,25 @@ public class RobotContainer {
   public RobotContainer() {
     // SmartDashboard.putNumber("SetAngle", 14);
     // SmartDashboard.putNumber("RPM", 0);
-    // SmartDashboard.putNumber("Hood Angle input", 14);
-    // SmartDashboard.putNumber("RPM input", 1800);
+    SmartDashboard.putNumber("Hood Angle input", 14);
+    SmartDashboard.putNumber("RPM input", 1800);
     // path1 = PathPlanner.loadPath("ComplexAutoPath1", 2, 1);
     // path2 = PathPlanner.loadPath("ComplexAutoPath2", 2, 1);
 
     // Configure the button bindings
-    path = PathPlanner.loadPath("SimpleAutoPath", 2, 1);
+    // path = PathPlanner.loadPath("SimpleAutoPath", 2, 1);
 
     configureButtonBindings();
+
+    // HttpCamera limelightFeed = new HttpCamera("limelight-cavbot", "http://10.74.92.101:5800", HttpCameraKind.kMJPGStreamer);
+    // CameraServer.startAutomaticCapture(limelightFeed);
  
     
 
-    turretSub.setDefaultCommand(//new SequentialCommandGroup(
-      // new TurnTurretCommand(turretSub),
-      // new StartTurretCommand(turretSub),
-      new AimCommand(turretSub));
+    turretSub.setDefaultCommand(new SequentialCommandGroup(
+      new TurnTurretCommand(turretSub),
+      new StartTurretCommand(turretSub),
+      new AimCommand(turretSub)));
     
     hoodSub.setDefaultCommand(
       // new HomeHoodCommand(hoodSub),
@@ -146,8 +153,8 @@ public class RobotContainer {
     //     new WaitCommand(90),
     // new RightClimbCommand(rightClimb, ()->rightClimbUp.getAsBoolean(), ()->rightClimbDown.getAsBoolean())));
 
-    // leftClimb.setDefaultCommand(new LeftClimbCommand(leftClimb, ()-> leftClimbUp.getAsBoolean(), ()-> leftClimbDown.getAsBoolean()));
-    // rightClimb.setDefaultCommand(new RightClimbCommand(rightClimb, ()->rightClimbUp.getAsBoolean(), ()->rightClimbDown.getAsBoolean()));
+    leftClimb.setDefaultCommand(new LeftClimbCommand(leftClimb, ()-> leftClimbUp.getAsBoolean(), ()-> leftClimbDown.getAsBoolean()));
+    rightClimb.setDefaultCommand(new RightClimbCommand(rightClimb, ()->rightClimbUp.getAsBoolean(), ()->rightClimbDown.getAsBoolean()));
     
     
     
@@ -160,9 +167,9 @@ public class RobotContainer {
     //passes conditional command into the default command of drive
     driveSub.setDefaultCommand(
       new FieldDriveCommand(
-        () -> modifyAxis(driver.getLeftY()) * DriveTrainSubsystems.maxVelocityPerSecond,
-        () -> modifyAxis(driver.getLeftX()) * DriveTrainSubsystems.maxVelocityPerSecond,
-        () -> modifyAxis(driver.getRightX()) * DriveTrainSubsystems.maxAngularVelocityPerSecond,
+        () -> modifyAxis(driver.getLeftY()),
+        () -> modifyAxis(driver.getLeftX()),
+        () -> modifyAxis(driver.getRightX()),
         driveSub
       ));
 
@@ -299,7 +306,7 @@ public class RobotContainer {
 
   public Command kickAuto(double x) {
     return new SequentialCommandGroup(
-      new InstantCommand(()->kickSub.setKicker(6)),
+      new InstantCommand(()->kickSub.setKicker(10)),
       new WaitCommand(x),
       new InstantCommand(()->kickSub.setKicker(0)));
   }
@@ -321,6 +328,8 @@ public class RobotContainer {
   private static double modifyAxis(double value) {
     // Deadband
     value = deadband(value, 0.08);
+    SmartDashboard.putNumber("wheelSpeedinput", value);
+
     // value = Math.copySign(value * value, value); 
     return value;
   }

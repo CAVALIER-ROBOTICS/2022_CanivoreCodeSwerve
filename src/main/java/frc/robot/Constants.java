@@ -42,16 +42,18 @@ public final class Constants {
     public static final int leftClimb = 22;
 
 
+    public final static double L = .5715;
+    public final static double W = .5715;
 
     public final static SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
         // Front left
-        new Translation2d(.4041, .4041),
+        new Translation2d(L/2, W/2),//.4041   .5751
         // Front right
-        new Translation2d(.4041, -.4041),
+        new Translation2d(L/2, -W/2),
         // Back left
-        new Translation2d(-.4041,.4041),
+        new Translation2d(-L/2,W/2),
         // Back right
-        new Translation2d(-.4041, -.4041));
+        new Translation2d(-L/2, -W/2));
 
         public static final int encoderCPR = 2048;
         // inches
@@ -62,16 +64,33 @@ public final class Constants {
 
         public static double acceptedVolts = 65;
 
-        public static final double TranslationController = 1;//.7
-        public static final double StrafeController = 1;//.7
-        public static final double ThetaController = .8;//1
+        // public static final double TranslationController = 1;//.7
+        // public static final double StrafeController = 1;//.7
+        // public static final double ThetaController = .8;//1
         
 
-        //per second radians                          Math.PI;
-        public static final double maxAngularSpeed = 3;
-        // per second per second in radians
-        public static final double maxAngularAcceleration = 2;
+        // //per second radians                          Math.PI;
+        // public static final double maxAngularSpeed = 3;
+        // // per second per second in radians
+        // public static final double maxAngularAcceleration = 2;
 
-        public static final TrapezoidProfile.Constraints thetaControllerConstraints = 
-        new TrapezoidProfile.Constraints(maxAngularSpeed, maxAngularAcceleration);
+        // public static final TrapezoidProfile.Constraints thetaControllerConstraints = 
+        // new TrapezoidProfile.Constraints(maxAngularSpeed, maxAngularAcceleration);
+
+
+    public static final class AutoConstants {
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+        public static final double PIDXController = 1;
+        public static final double PIDYController = 1;
+        public static final double PIDThetaController = 1;
+
+        // Constraint for the motion profiled robot angle controller
+        public static final TrapezoidProfile.Constraints thetaControllerConstraints =
+            new TrapezoidProfile.Constraints(
+                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
 }

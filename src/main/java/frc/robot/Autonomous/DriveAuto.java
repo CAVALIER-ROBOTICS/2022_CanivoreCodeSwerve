@@ -31,7 +31,7 @@ public class DriveAuto  {
     public DriveAuto(DriveTrainSubsystems d) {
        
         driveSub = d;
-        thetaController = new ProfiledPIDController(Constants.ThetaController, 0, 0, Constants.thetaControllerConstraints);//.4
+        thetaController = new ProfiledPIDController(Constants.AutoConstants.PIDThetaController, 0, 0, Constants.AutoConstants.thetaControllerConstraints);//.4
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
     }
 
@@ -54,14 +54,14 @@ public class DriveAuto  {
         loadedTrajectories.get(desiredPath),
         driveSub::getPose,
         Constants.m_kinematics,
-        new PIDController(Constants.TranslationController, 0, 0),//.3
-        new PIDController(Constants.StrafeController, 0, 0),//.3
+        new PIDController(Constants.AutoConstants.PIDXController, 0, 0),//.3
+        new PIDController(Constants.AutoConstants.PIDYController, 0, 0),//.3
         thetaController,
         driveSub::setModules,
         driveSub); 
 
         // Run path following command, then stop at the end.
-        return command.andThen(() -> driveSub.drive(new ChassisSpeeds(0,0,0)));
+        return command.andThen(() -> driveSub.drive(new ChassisSpeeds(0,0,0))).beforeStarting(new InstantCommand(()->thetaController.reset(driveSub.getPose().getRotation().getRadians())));
     }
 
     public Command getSimpleAutoPath() {
@@ -69,14 +69,14 @@ public class DriveAuto  {
         loadSimpleAutoTrajectory(),
         driveSub::getPose,
         Constants.m_kinematics,
-        new PIDController(Constants.TranslationController, 0, 0),//.3
-        new PIDController(Constants.StrafeController, 0, 0),//.3
+        new PIDController(Constants.AutoConstants.PIDXController, 0, 0),//.3
+        new PIDController(Constants.AutoConstants.PIDYController, 0, 0),//.3
         thetaController,
         driveSub::setModules,
         driveSub); 
 
         // Run path following command, then stop at the end.
-        return command.andThen(() -> driveSub.drive(new ChassisSpeeds(0,0,0)));
+        return command.andThen(() -> driveSub.drive(new ChassisSpeeds(0,0,0))).beforeStarting(new InstantCommand(()->thetaController.reset(driveSub.getPose().getRotation().getRadians())));
     }
 
     public Pose2d getComplexInitialPose() {

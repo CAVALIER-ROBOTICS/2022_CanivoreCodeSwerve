@@ -44,8 +44,8 @@ public class LeftClimbCommand extends CommandBase {
       leftClimb.set(-.7);
     }
     else {
-      // leftClimb.setPos();
-      leftClimb.set(0);
+      leftClimb.setPos();
+      //leftClimb.set(0);
 
     }
   }

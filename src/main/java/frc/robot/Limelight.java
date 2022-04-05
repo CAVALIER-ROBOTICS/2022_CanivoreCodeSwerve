@@ -56,12 +56,12 @@ public class Limelight {
         if(x) {
             table.getEntry("ledMode").setNumber(3);
             currentMode = ledModes.ON;
-            SmartDashboard.putBoolean("LimelightStatus", true);
+            // SmartDashboard.putBoolean("LimelightStatus", true);
         }
         else {
             table.getEntry("ledMode").setNumber(1);
             currentMode = ledModes.OFF;
-            SmartDashboard.putBoolean("LimelightStatus", false);
+            // SmartDashboard.putBoolean("LimelightStatus", false);
         }
     }
 

@@ -39,8 +39,8 @@ public class RightClimbCommand extends CommandBase {
       rightClimb.set(-.7);
     }
     else {
-      rightClimb.set(0);
-      // rightClimb.setPos();
+      // rightClimb.set(0);
+      rightClimb.setPos();
     }
   }
 

@@ -7,6 +7,7 @@ package frc.robot.commands.DriveCommands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystems;
 
@@ -47,7 +48,11 @@ public class FieldDriveCommand extends CommandBase {
           rotationSupplier.getAsDouble(),
           driveSub.getGyroscopeRotation()
       ));
-  
+
+      SmartDashboard.putNumber("x trans", translationXSupplier.getAsDouble());
+      SmartDashboard.putNumber("y trans", translationYSupplier.getAsDouble());
+      SmartDashboard.putNumber("rot trans", rotationSupplier.getAsDouble());
+
 
     // =++++++++++ THIS IS THE NON FIELD ORIENTED DRIVE+++++++++
     // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
