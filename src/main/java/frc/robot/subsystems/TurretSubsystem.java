@@ -102,9 +102,9 @@ public class TurretSubsystem extends SubsystemBase {
     
     if(getAngle()>290) {turnDown = true;}
 
-    if(getAngle()>270&& turnUp) {turnUp = false;}
+    if(getAngle()>250&& turnUp) {turnUp = false;}
 
-    if(getAngle()<30 && turnDown) {turnDown = false;}
+    if(getAngle()<50 && turnDown) {turnDown = false;}
   }
 
   public void aim()

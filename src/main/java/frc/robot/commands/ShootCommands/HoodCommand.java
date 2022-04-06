@@ -23,8 +23,8 @@ public class HoodCommand extends PIDCommand {
         // This should return the measurement
         hoodSub::getAngle,
         // This should return the setpoint (can also be a constant)
-        // ()-> Limelight.getAngle(),
-        () -> SmartDashboard.getNumber("Hood Angle input", 14),
+        ()-> Limelight.getAngle(),
+        // () -> SmartDashboard.getNumber("Hood Angle input", 14),
         // This uses the output
         (output) -> {
           // Use the output here

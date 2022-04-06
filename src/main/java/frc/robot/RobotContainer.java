@@ -130,9 +130,9 @@ public class RobotContainer {
       new StartTurretCommand(turretSub),
       new AimCommand(turretSub)));
     
-    hoodSub.setDefaultCommand(
-      // new HomeHoodCommand(hoodSub),
-      new HoodCommand(hoodSub));
+    // hoodSub.setDefaultCommand(
+    //   // new HomeHoodCommand(hoodSub),
+    //   new HoodCommand(hoodSub));
 
     // traversalSub.setDefaultCommand(
     //   new TraversalClimbCommand(

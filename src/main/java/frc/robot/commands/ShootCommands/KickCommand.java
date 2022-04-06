@@ -19,11 +19,11 @@ public class KickCommand extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new StartEndCommand(
-        ()-> kickSub.setKicker(10), 
+        ()-> kickSub.setKicker(8), 
         ()-> kickSub.stopKicker(),
         kickSub),
       new StartEndCommand(
-        () -> floorSub.setFloor(6), 
+        () -> floorSub.setFloor(4), 
         () -> floorSub.stopFloor(),
         floorSub)
     );
