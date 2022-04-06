@@ -12,10 +12,10 @@ public interface DriveTrainConstants {
   public static final double maxVoltage = 7;//7
 
 
-  // this is just an estimate In radians
-  public static final double maxVelocityPerSecond = 7;//2
+  // // this is just an estimate In radians
+  // public static final double maxVelocityPerSecond = 7;//2
 
-  public static final double maxAngularVelocityPerSecond = maxVelocityPerSecond/Math.hypot(0.4041,.4041);
+  // public static final double maxAngularVelocityPerSecond = maxVelocityPerSecond/Math.hypot(0.4041,.4041);
   //when upside down, decreasing offset = turn left/counterclockwise, increasing offset = turn right/clockwise
 //If it's negative increase
   public static final int pigeonID = 21;

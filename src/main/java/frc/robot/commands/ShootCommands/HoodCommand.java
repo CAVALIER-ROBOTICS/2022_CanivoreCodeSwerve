@@ -19,7 +19,7 @@ public class HoodCommand extends PIDCommand {
   public HoodCommand(HoodSubsystem hoodSub) {
     super(
         // The controller that the command will use
-        new PIDController(0.052, 0.007, 0),
+        new PIDController(0.04, 0.007, 0),//.052
         // This should return the measurement
         hoodSub::getAngle,
         // This should return the setpoint (can also be a constant)

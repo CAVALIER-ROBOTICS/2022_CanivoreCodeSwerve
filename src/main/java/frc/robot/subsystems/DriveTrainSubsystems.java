@@ -7,22 +7,18 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveLibrary.Mk4SwerveModuleHelper;
+import frc.robot.subsystems.SwerveLibrary.SdsModuleConfigurations;
 import frc.robot.subsystems.SwerveLibrary.SwerveModule;
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
-import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -48,13 +44,20 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
     SwerveModuleState[] states = Constants.m_kinematics.toSwerveModuleStates(chassisSpeeds);
 
     Field2d field = new Field2d();
+    
+    public static final double maxVelocityPerSecond = 6380.0 / 60.0 *
+          SdsModuleConfigurations.MK4_L2.getDriveReduction() *
+          SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
+
+  public static final double maxAnglarVelocityPerSecond = maxVelocityPerSecond /
+          Math.hypot(Constants.W / 2.0, Constants.L / 2.0);
 
 
   public DriveTrainSubsystems() {
     SmartDashboard.putData("Field", field);
 
     // pidgey.setStatusFramePeriod(PigeonIMU_StatusFrame.RawStatus_4_Mag, 62200);
-    pidgey.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_6_Accel, 62100);
+    // pidgey.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_6_Accel, 62100);
     // pidgey.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_2_Gyro, 62150);
 
     frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
@@ -106,19 +109,17 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
     return Rotation2d.fromDegrees(360.0 - pidgey.getAngle()); 
   }
 
-  public void drive(ChassisSpeeds speeds)
-  {
+  public void drive(ChassisSpeeds speeds) {
     states = Constants.m_kinematics.toSwerveModuleStates(speeds);
     // states = Constants.m_kinematics.toSwerveModuleStates(speeds);
     // frontLeftModule.set(states[0].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[0].angle.getRadians());
-    frontLeftModule.set(states[0].speedMetersPerSecond, states[0].angle.getRadians());
-    frontRightModule.set(states[1].speedMetersPerSecond, states[1].angle.getRadians());
-    backLeftModule.set(states[2].speedMetersPerSecond, states[2].angle.getRadians());
-    backRightModule.set(states[3].speedMetersPerSecond, states[3].angle.getRadians());
+    frontLeftModule.set(states[0].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[0].angle.getRadians());
+    frontRightModule.set(states[1].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[1].angle.getRadians());
+    backLeftModule.set(states[2].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[2].angle.getRadians());
+    backRightModule.set(states[3].speedMetersPerSecond / maxVelocityPerSecond * maxVoltage, states[3].angle.getRadians());
   }
 
-  public void setModules(SwerveModuleState[] speeds)
-  {
+  public void setModules(SwerveModuleState[] speeds) {
     states = speeds;
     drive(Constants.m_kinematics.toChassisSpeeds(speeds));
     // frontLeftModule.set(speeds[0].speedMetersPerSecond * -2, speeds[0].angle.getRadians());
@@ -128,8 +129,7 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
   }
 
   @Override
-  public void periodic() {
-  }
+  public void periodic() {}
 
   public SwerveModuleState[] invert(SwerveModuleState[] x) {
     SwerveModuleState[] temp = new SwerveModuleState[4];
@@ -146,12 +146,12 @@ public class DriveTrainSubsystems extends SubsystemBase implements DriveTrainCon
     // SmartDashboard.putString("Odo", ""+odo.getPoseMeters());
   }
 
-  private double unitsToDistance(double sensorCounts){
-    double motorRotations = (double)sensorCounts / 2048;
-    double wheelRotations = motorRotations / 6.75;
-    double positionMeters = wheelRotations * (2 * Math.PI * Units.inchesToMeters(2));
-    return positionMeters;
-  }
+  // private double unitsToDistance(double sensorCounts){
+  //   double motorRotations = (double)sensorCounts / 2048;
+  //   double wheelRotations = motorRotations / 6.75;
+  //   double positionMeters = wheelRotations * (2 * Math.PI * Units.inchesToMeters(2));
+  //   return positionMeters;
+  // }
 
   // 0.10033
   // (14.0 / 50.0) * (25.0 / 19.0) * (15.0 / 45.0)

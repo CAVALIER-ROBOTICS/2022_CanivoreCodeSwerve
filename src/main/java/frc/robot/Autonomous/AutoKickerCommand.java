@@ -19,7 +19,7 @@ public class AutoKickerCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new WaitCommand(2),
-      new InstantCommand(()-> kickerSub.setKicker(3)),
+      new InstantCommand(()-> kickerSub.setKicker(10)),
       new WaitCommand(4),
       new InstantCommand(()-> kickerSub.setKicker(0)),
       new WaitCommand(11),

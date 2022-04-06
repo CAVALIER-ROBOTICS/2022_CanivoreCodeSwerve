@@ -59,11 +59,6 @@ public class TurretSubsystem extends SubsystemBase {
     turretPID.setIZone(kIz);
     turretPID.setFF(kFF);
 
-    // SmartDashboard.putNumber("P Gain", kP);
-    // SmartDashboard.putNumber("I Gain", kI);
-    // SmartDashboard.putNumber("D Gain", kD);
-    // SmartDashboard.putNumber("I Zone", kIz);
-    // SmartDashboard.putNumber("Feed Forward", kFF);
 
     turnUp = false;
     turnDown = false;
@@ -97,10 +92,6 @@ public class TurretSubsystem extends SubsystemBase {
     encoder.setPosition(0.0);
   }
 
-  private double getError() {
-      return getAngle() - desiredAngle;
-  }
-
   public boolean inRange() {
     return (getAngle()>90 || getAngle()<213);
   }
@@ -111,9 +102,9 @@ public class TurretSubsystem extends SubsystemBase {
     
     if(getAngle()>290) {turnDown = true;}
 
-    if(getAngle()>150&& turnUp) {turnUp = false;}
+    if(getAngle()>270&& turnUp) {turnUp = false;}
 
-    if(getAngle()<150 && turnDown) {turnDown = false;}
+    if(getAngle()<30 && turnDown) {turnDown = false;}
   }
 
   public void aim()
@@ -173,16 +164,6 @@ public class TurretSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // SmartDashboard.putNumber("Turret Enc", encoder.getPosition());
-    // SmartDashboard.putBoolean("turnUp",turnUp);
-    // SmartDashboard.putBoolean("turnDown",turnDown);
-    // SmartDashboard.putNumber("turret voltage", getVolts());
-
-    // SmartDashboard.putNumber("Desired Angle", desiredAngle);
-    // SmartDashboard.putNumber("curretn angle", getAngle());
-    // SmartDashboard.putNumber("limelightX", Limelight.getX());
-
     desiredAngle = getAngle() + Limelight.getX();
   }
 }

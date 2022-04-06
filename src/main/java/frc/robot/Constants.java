@@ -79,10 +79,10 @@ public final class Constants {
 
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+        public static final double maxSpeedMetersPerSecond = 3;
+        public static final double maxAccelerationMetersPerSecondSquared = 3;
+        public static final double maxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double maxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
         public static final double PIDXController = 1;
         public static final double PIDYController = 1;
@@ -91,6 +91,6 @@ public final class Constants {
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints thetaControllerConstraints =
             new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+                maxAngularSpeedRadiansPerSecond, maxAngularSpeedRadiansPerSecondSquared);
   }
 }

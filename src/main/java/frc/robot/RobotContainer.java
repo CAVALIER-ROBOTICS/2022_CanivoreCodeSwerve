@@ -167,9 +167,9 @@ public class RobotContainer {
     //passes conditional command into the default command of drive
     driveSub.setDefaultCommand(
       new FieldDriveCommand(
-        () -> modifyAxis(driver.getLeftY()),
-        () -> modifyAxis(driver.getLeftX()),
-        () -> modifyAxis(driver.getRightX()),
+        () -> modifyAxis(driver.getLeftY() * DriveTrainSubsystems.maxVelocityPerSecond),
+        () -> modifyAxis(driver.getLeftX() * DriveTrainSubsystems.maxVelocityPerSecond),
+        () -> modifyAxis(driver.getRightX() * DriveTrainSubsystems.maxAnglarVelocityPerSecond),
         driveSub
       ));
 

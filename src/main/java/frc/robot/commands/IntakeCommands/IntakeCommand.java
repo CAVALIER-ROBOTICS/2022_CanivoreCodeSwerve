@@ -24,7 +24,7 @@ public class IntakeCommand extends ParallelCommandGroup {
         ()-> intakeSub.stopIntake(),
         intakeSub),
       new StartEndCommand(
-        () -> floorSub.setFloor(4),
+        () -> floorSub.setFloor(3),
         () -> floorSub.stopFloor(),
         floorSub));
   }

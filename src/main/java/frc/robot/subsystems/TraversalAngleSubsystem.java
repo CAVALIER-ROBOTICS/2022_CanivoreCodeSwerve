@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -48,7 +47,6 @@ public class TraversalAngleSubsystem extends SubsystemBase {
   
   public void setAnglePos() {
     anglePID.setReference(angleEnc.getPosition(), CANSparkMax.ControlType.kPosition);
-    // SmartDashboard.putNumber("angleEnc", angleEnc.getPosition());
   }
 
   @Override

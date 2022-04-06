@@ -12,7 +12,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -46,11 +45,8 @@ public class TraversalClimbSubsystem extends SubsystemBase {
 
   public void setClimbPos() {
     climbPID.setReference(climbEnc.getPosition(), ControlType.kPosition);
-    // SmartDashboard.putNumber("traversalEnc", climbEnc.getPosition());
   }
 
   @Override
-  public void periodic() {
-    // SmartDashboard.putNumber("traversalClimb output", climb.get());
-  }
+  public void periodic() {}
 }

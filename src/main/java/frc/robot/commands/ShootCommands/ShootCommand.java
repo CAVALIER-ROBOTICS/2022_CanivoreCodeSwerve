@@ -46,10 +46,6 @@ public class ShootCommand extends CommandBase {
   public void end(boolean interrupted) 
   {
     shootSub.setShooter(0.0);
-    // shootSub.setShooter(0);
-    // RobotContainer.operator.setRumble(RumbleType.kLeftRumble, 0.0);
-    // RobotContainer.operator.setRumble(RumbleType.kRightRumble, 0.0);
-    // shootSub.setShooterVelocity(0);
   }
 
   // Returns true when the command should end.
