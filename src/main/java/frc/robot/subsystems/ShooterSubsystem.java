@@ -26,9 +26,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
     right.setInverted(TalonFXInvertType.CounterClockwise); //was Clockwise
 
-    // left.follow(right);
-    // left.setInverted(TalonFXInvertType.OpposeMaster); //was CounterClockwise - is jittering
-    left.setInverted(TalonFXInvertType.Clockwise);
+    left.follow(right);
+    left.setInverted(TalonFXInvertType.OpposeMaster); //was CounterClockwise - is jittering
+    // left.setInverted(TalonFXInvertType.Clockwise);
     
 
     right.setNeutralMode(NeutralMode.Coast);
@@ -91,7 +91,7 @@ public class ShooterSubsystem extends SubsystemBase {
     right.set(ControlMode.Velocity, (rpm/600)*2048);
     // right.set(ControlMode.PercentOutput, .45);
 
-    left.set(ControlMode.Follower, Constants.rightShooterID);
+    // left.set(ControlMode.Follower, Constants.rightShooterID);
     // left.set(ControlMode.Velocity, (rpm/600)*2048);
     // left.setVoltage(3);
     // right.setVoltage(3);
