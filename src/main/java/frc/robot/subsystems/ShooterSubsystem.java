@@ -17,8 +17,8 @@ import frc.robot.Limelight;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  TalonFX right = new TalonFX(Constants.rightShooterID);
-  TalonFX left = new TalonFX(Constants.leftShootID);
+  WPI_TalonFX right = new WPI_TalonFX(Constants.rightShooterID);
+  WPI_TalonFX left = new WPI_TalonFX(Constants.leftShootID);
 
   public ShooterSubsystem() {
     right.configFactoryDefault();
@@ -26,16 +26,16 @@ public class ShooterSubsystem extends SubsystemBase {
 
     right.setInverted(TalonFXInvertType.CounterClockwise); //was Clockwise
 
-    left.follow(right);
-    left.setInverted(TalonFXInvertType.OpposeMaster); //was CounterClockwise - is jittering
-    
+    // left.follow(right);
+    // left.setInverted(TalonFXInvertType.OpposeMaster); //was CounterClockwise - is jittering
+    left.setInverted(TalonFXInvertType.Clockwise);
     
 
     right.setNeutralMode(NeutralMode.Coast);
     left.setNeutralMode(NeutralMode.Coast);
 
-    right.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,0,20);
-    left.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,0,20);
+    right.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,0,1);
+    left.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor,0,1);
 
     // double voltage = 9;
 
@@ -62,23 +62,17 @@ public class ShooterSubsystem extends SubsystemBase {
     // left.setStatusFramePeriod(StatusFrameEnhanced.Status_15_FirmwareApiStatus, 60000);
 
 
-    double ff = 0.0679;//.0592
+    double ff = 0.067;//.0592
     double p = 0.00;//.1
-    double i = 0;
-    double d = 0;
-    right.config_kF(0, ff, 20);
-		right.config_kP(0, p, 20);
-		right.config_kI(0, i, 20);
-    right.config_IntegralZone(0, 100);
-		right.config_kD(0, d, 20);
+    int waitSec =1; // was 20 before...
+
+    right.config_kF(0, ff, waitSec);
+		right.config_kP(0, p, waitSec);
 
     // left.follow(right);
 
-    left.config_kF(0, ff, 20);
-		left.config_kP(0, p, 20);
-		left.config_kI(0, i, 20);
-    left.config_IntegralZone(0, 100);
-		left.config_kD(0, d, 20);
+    left.config_kF(0, ff, waitSec);
+		left.config_kP(0, p, waitSec);
 
   }
 
@@ -94,8 +88,15 @@ public class ShooterSubsystem extends SubsystemBase {
     // leftShooter.set(a);
     // rightShooter.set(a);
     // SmartDashboard.putNumber("Fly Wheel", getVolicty());  //(rpm/600)*2048
-    right.set(ControlMode.Current, (rpm/600)*2048);
+    right.set(ControlMode.Velocity, (rpm/600)*2048);
+    // right.set(ControlMode.PercentOutput, .45);
+
     left.set(ControlMode.Follower, Constants.rightShooterID);
+    // left.set(ControlMode.Velocity, (rpm/600)*2048);
+    // left.setVoltage(3);
+    // right.setVoltage(3);
+
+    // right.setVoltage(12);
   }
 
   public void setShooter(double volt) {

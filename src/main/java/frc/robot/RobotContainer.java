@@ -125,10 +125,10 @@ public class RobotContainer {
  
     
 
-    turretSub.setDefaultCommand(new SequentialCommandGroup(
-      new TurnTurretCommand(turretSub),
-      new StartTurretCommand(turretSub),
-      new AimCommand(turretSub)));
+    // turretSub.setDefaultCommand(new SequentialCommandGroup(
+    //   new TurnTurretCommand(turretSub),
+    //   new StartTurretCommand(turretSub),
+    //   new AimCommand(turretSub)));
     
     // hoodSub.setDefaultCommand(
     //   // new HomeHoodCommand(hoodSub),
