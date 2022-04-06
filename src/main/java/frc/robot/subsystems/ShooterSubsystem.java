@@ -26,7 +26,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     right.setInverted(TalonFXInvertType.CounterClockwise); //was Clockwise
 
-    left.follow(right);
+    left.set(ControlMode.Follower, Constants.rightShooterID);
     left.setInverted(TalonFXInvertType.OpposeMaster); //was CounterClockwise - is jittering
     // left.setInverted(TalonFXInvertType.Clockwise);
     
@@ -62,7 +62,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // left.setStatusFramePeriod(StatusFrameEnhanced.Status_15_FirmwareApiStatus, 60000);
 
 
-    double ff = 0.067;//.0592
+    double ff = 0.065;//.0592
     double p = 0.00;//.1
     int waitSec =1; // was 20 before...
 
@@ -80,7 +80,7 @@ public class ShooterSubsystem extends SubsystemBase {
    * 
    * @param a Velocity to be set
    */
-  public void setShooterVelocity(double rpm)
+  public void setShooterVelocity(double output)
   {
     // leftPID.setReference(rpm, ControlType.kVelocity);
     // rightPID.setReference(rpm, ControlType.kVelocity);
@@ -88,8 +88,8 @@ public class ShooterSubsystem extends SubsystemBase {
     // leftShooter.set(a);
     // rightShooter.set(a);
     // SmartDashboard.putNumber("Fly Wheel", getVolicty());  //(rpm/600)*2048
-    right.set(ControlMode.Velocity, (rpm/600)*2048);
-    // right.set(ControlMode.PercentOutput, .45);
+    // right.set(ControlMode.Velocity, (rpm/600)*2048);
+    right.set(ControlMode.PercentOutput, output);
 
     // left.set(ControlMode.Follower, Constants.rightShooterID);
     // left.set(ControlMode.Velocity, (rpm/600)*2048);
@@ -100,7 +100,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setShooter(double volt) {
-    left.set(ControlMode.PercentOutput, volt);
+    // left.set(ControlMode.PercentOutput, volt);
     right.set(ControlMode.PercentOutput, volt);
   }
   

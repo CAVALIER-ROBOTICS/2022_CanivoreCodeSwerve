@@ -28,7 +28,7 @@ public class ShootCommand extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("table RPM", Limelight.getRPM());
-    // shootSub.setShooterVelocity(SmartDashboard.getNumber("RPM input", 1800));
+    // shootSub.setShooterVelocity(SmartDashboard.getNumber("RPM input", .2));
     shootSub.setShooterVelocity(Limelight.getRPM());
     // shootSub.setShooter(.5);
     // shootSub.setShooterVelocity();

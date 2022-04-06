@@ -111,7 +111,7 @@ public class RobotContainer {
     // SmartDashboard.putNumber("SetAngle", 14);
     // SmartDashboard.putNumber("RPM", 0);
     SmartDashboard.putNumber("Hood Angle input", 14);
-    SmartDashboard.putNumber("RPM input", 1800);
+    SmartDashboard.putNumber("RPM input", .2);
     // path1 = PathPlanner.loadPath("ComplexAutoPath1", 2, 1);
     // path2 = PathPlanner.loadPath("ComplexAutoPath2", 2, 1);
 
